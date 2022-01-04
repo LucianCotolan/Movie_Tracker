@@ -34,6 +34,8 @@ namespace Movie_Tracker.Controllers
             }
 
             var director = await _context.Directors
+                .Include(d => d.DirectedMovies)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (director == null)
             {

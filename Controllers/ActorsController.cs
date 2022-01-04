@@ -34,6 +34,9 @@ namespace Movie_Tracker.Controllers
             }
 
             var actor = await _context.Actors
+                .Include(r => r.Roles)
+                .ThenInclude(v => v.Movie)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (actor == null)
             {

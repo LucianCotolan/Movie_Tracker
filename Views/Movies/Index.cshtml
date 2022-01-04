@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Director.Name)
+                @Html.ActionLink(item.Director.Name, "Details", "Directors", new { Id = item.Director.Id }, null )
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>

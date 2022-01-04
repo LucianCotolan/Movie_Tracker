@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Movie_Tracker.Data;
 using Movie_Tracker.Models;
@@ -36,6 +37,9 @@ namespace Movie_Tracker.Controllers
 
             var movie = await _context.Movies
                 .Include(m => m.Director)
+                .Include(r => r.Roles)
+                .ThenInclude(a => a.Actor)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
