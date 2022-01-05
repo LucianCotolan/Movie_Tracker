@@ -96,6 +96,55 @@ namespace Movie_Tracker.Data
                 context.Movies.Add(m);
             }
             context.SaveChanges();
+
+            var roles = new Role[]
+            {
+                new Role{MovieId=18, ActorId=1001, RoleName="Ellis Boyd 'Red' Reddingg"},
+                new Role{MovieId=18, ActorId=1002, RoleName="Andy Dufresne"},
+                new Role{MovieId=17, ActorId=1004, RoleName="Don Vito Corleone"},
+                new Role{MovieId=17, ActorId=1003, RoleName="Michael"},
+                new Role{MovieId=2, ActorId=1003, RoleName="Michael"},
+                new Role{MovieId=2, ActorId=1005, RoleName="Vito Corleone"},
+                new Role{MovieId=3, ActorId=1006, RoleName="Bruce Wayne"},
+                new Role{MovieId=3, ActorId=1007, RoleName="Joker"},
+                new Role{MovieId=4, ActorId=1008, RoleName="Juror 8"},
+                new Role{MovieId=5, ActorId=1009, RoleName="Oskar Schindler"},
+                new Role{MovieId=6, ActorId=1010, RoleName="Frodo"},
+                new Role{MovieId=6, ActorId=1011, RoleName="Gandalf"},
+                new Role{MovieId=6, ActorId=1022, RoleName="Aragorn"},
+                new Role{MovieId=6, ActorId=1017, RoleName="Legolas"},
+                new Role{MovieId=8, ActorId=1014, RoleName="Vincent Vega"},
+                new Role{MovieId=8, ActorId=1015, RoleName="Mia Wallace"},
+                new Role{MovieId=8, ActorId=1016, RoleName="Jules Winnfield"},
+                new Role{MovieId=9, ActorId=1010, RoleName="Frodo"},
+                new Role{MovieId=9, ActorId=1011, RoleName="Gandalf"},
+                new Role{MovieId=9, ActorId=1017, RoleName="Legolas"},
+                new Role{MovieId=10, ActorId=1018, RoleName="Tyler Durden"},
+                new Role{MovieId=10, ActorId=1019, RoleName="The Narrator"},
+                new Role{MovieId=11, ActorId=1020, RoleName="Forrest Gump"},
+                new Role{MovieId=12, ActorId=1021, RoleName="Cobb"},
+                new Role{MovieId=13, ActorId=1010, RoleName="Frodo"},
+                new Role{MovieId=13, ActorId=1011, RoleName="Gandalf"},
+                new Role{MovieId=13, ActorId=1022, RoleName="Aragorn"},
+                new Role{MovieId=13, ActorId=1017, RoleName="Legolas"},
+                new Role{MovieId=7, ActorId=1012, RoleName="Peter Parker"},
+                new Role{MovieId=7, ActorId=1013, RoleName="Doctor Strange"},
+                new Role{MovieId=14, ActorId=1005, RoleName="James Conway"},
+                new Role{MovieId=14, ActorId=1023, RoleName="Tommy DeVito"},
+                new Role{MovieId=14, ActorId=1024, RoleName="Henry Hill"},
+                new Role{MovieId=15, ActorId=1001, RoleName="Somerset"},
+                new Role{MovieId=15, ActorId=1018, RoleName="Mills"},
+                new Role{MovieId=16, ActorId=1020, RoleName="Captain Miller"},
+                new Role{MovieId=16, ActorId=1025, RoleName="Private Ryan"},
+                new Role{MovieId=1, ActorId=1026, RoleName="Cooper"},
+                new Role{MovieId=1, ActorId=1027, RoleName="Brand"},
+            };
+
+            foreach (Role r in roles)
+            {
+                context.Role.Add(r);
+            }
+            context.SaveChanges();
         }
     }
 }
