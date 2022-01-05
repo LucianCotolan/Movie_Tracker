@@ -29,13 +29,9 @@ namespace Movie_Tracker.Controllers
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             var userId = claim.Value;
-            IEnumerable<WatchedMovie> movies = new List<WatchedMovie>();
-            if (!string.IsNullOrEmpty(userId))
-            {
-                movies = _context.WatchedMovies.Where(x => x.ApplicationUserId == userId);
-            }
-
-            return View(movies);
+            
+            var movieContext = _context.WatchedMovies.Where(w => w.ApplicationUserId == userId).Include(w => w.Movie);
+            return View(await movieContext.ToListAsync());
         }
 
         // GET: WatchedMovies/Details/5
