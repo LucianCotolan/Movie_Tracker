@@ -15,6 +15,7 @@ namespace Movie_Tracker.Models
         public string Description { get; set; }
         public int DirectorId { get; set; }
         public Director Director { get; set; }
-        public ICollection<Role> Roles { get; set; }
+        public ICollection<ActorRole> Roles { get; set; }
+        public ICollection<WatchedMovie> WatchedMovies { get; set;}
     }
 }
