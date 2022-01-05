@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Movie_Tracker.Data;
+using Microsoft.AspNetCore.Http;
 using Movie_Tracker.Hubs;
 
 namespace Movie_Tracker
@@ -29,6 +30,7 @@ namespace Movie_Tracker
             services.AddControllersWithViews();
             services.AddDbContext<MovieContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSignalR();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

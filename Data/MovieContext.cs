@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Movie_Tracker.Areas.Identity.Data;
 using Movie_Tracker.Models;
@@ -7,8 +8,10 @@ namespace Movie_Tracker.Data
 {
     public class MovieContext : IdentityDbContext<ApplicationUser>
     {
-        public MovieContext(DbContextOptions<MovieContext> options) :base(options)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public MovieContext(DbContextOptions<MovieContext> options, IHttpContextAccessor httpContextAccessor) :base(options)
         {
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public DbSet<Movie> Movies { get; set; }
