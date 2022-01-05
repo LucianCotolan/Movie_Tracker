@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Movie_Tracker.Areas.Identity.Data;
 
 namespace Movie_Tracker.Areas.Identity.Pages.Account
 {

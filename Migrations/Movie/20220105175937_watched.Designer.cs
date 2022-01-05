@@ -10,7 +10,7 @@ using Movie_Tracker.Data;
 namespace Movie_Tracker.Migrations.Movie
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20220105174457_watched")]
+    [Migration("20220105175937_watched")]
     partial class watched
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,7 +72,7 @@ namespace Movie_Tracker.Migrations.Movie
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace Movie_Tracker.Migrations.Movie
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -120,7 +120,7 @@ namespace Movie_Tracker.Migrations.Movie
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -135,7 +135,7 @@ namespace Movie_Tracker.Migrations.Movie
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -347,7 +347,7 @@ namespace Movie_Tracker.Migrations.Movie
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUserClaim<string>", b =>
                 {
                     b.HasOne("Movie_Tracker.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
@@ -356,7 +356,7 @@ namespace Movie_Tracker.Migrations.Movie
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUserLogin<string>", b =>
                 {
                     b.HasOne("Movie_Tracker.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
@@ -365,7 +365,7 @@ namespace Movie_Tracker.Migrations.Movie
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUserRole<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
@@ -380,7 +380,7 @@ namespace Movie_Tracker.Migrations.Movie
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.ApplicationUserToken<string>", b =>
                 {
                     b.HasOne("Movie_Tracker.Areas.Identity.Data.ApplicationUser", null)
                         .WithMany()
