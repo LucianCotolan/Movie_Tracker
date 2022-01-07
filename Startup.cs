@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Movie_Tracker.Data;
 using Microsoft.AspNetCore.Http;
 using Movie_Tracker.Hubs;
+using Microsoft.AspNetCore.Identity;
 
 namespace Movie_Tracker
 {
@@ -31,6 +32,27 @@ namespace Movie_Tracker
             services.AddDbContext<MovieContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSignalR();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.Configure<IdentityOptions>(options => {
+                // Default Lockout settings.
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireUppercase = false;
+                options.SignIn.RequireConfirmedEmail = false;
+            });
+            services.AddRazorPages();
+            services.AddAuthorization(opts => {
+                opts.AddPolicy("AdminAccess", policy => {
+                    policy.RequireRole("Admin");
+                });
+                opts.AddPolicy("Manager", policy => {
+                    policy.RequireRole("Manager");
+                });
+            });
+            services.ConfigureApplicationCookie(opts =>
+            {
+                opts.AccessDeniedPath = "/Identity/Account/AccessDenied";
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

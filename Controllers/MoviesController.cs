@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
@@ -11,6 +12,7 @@ using Movie_Tracker.Models;
 
 namespace Movie_Tracker.Controllers
 {
+    [Authorize(Policy = "Manager")]
     public class MoviesController : Controller
     {
         private readonly MovieContext _context;
@@ -20,6 +22,7 @@ namespace Movie_Tracker.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         // GET: Movies
         public async Task<IActionResult> Index()
         {
@@ -27,6 +30,7 @@ namespace Movie_Tracker.Controllers
             return View(await movieContext.ToListAsync());
         }
 
+        [AllowAnonymous]
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -36,6 +40,8 @@ namespace Movie_Tracker.Controllers
             }
 
             var movie = await _context.Movies
+                .Include(w => w.WatchedMovies)
+                .ThenInclude(u => u.ApplicationUser)
                 .Include(m => m.Director)
                 .Include(r => r.Roles)
                 .ThenInclude(a => a.Actor)
