@@ -28,19 +28,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Actors" asp-action="Index">Actors</a>
                         </li>
+                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="ActorRoles" asp-action="Create">Create-ActorRoles</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Directors" asp-action="Index">Directors</a>
                         </li>
                         @if (signInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="WatchedMovies" asp-action="Index">Watched Movies</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="WatchedMovies" asp-action="Index">Watched-Movies</a>
                             </li>
                         }
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Roles" asp-action="Index">ManageRoles</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Roles" asp-action="Index">Manage-Roles</a>
                             </li>
                         }
                     </ul>
@@ -57,7 +63,7 @@
 
     <footer class="footer bg-secondary text-light">
         <div class="container">
-            &copy; 2021 - Movie Tracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 20222 - Movie Tracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

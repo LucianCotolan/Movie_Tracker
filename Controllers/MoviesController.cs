@@ -81,7 +81,7 @@ namespace Movie_Tracker.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
-            ViewData["DirectorId"] = new SelectList(_context.Directors, "Id", "Id");
+            ViewData["DirectorId"] = new SelectList(_context.Directors, "Id", "Name");
             return View();
         }
 
