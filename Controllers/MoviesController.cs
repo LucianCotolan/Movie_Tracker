@@ -24,10 +24,33 @@ namespace Movie_Tracker.Controllers
 
         [AllowAnonymous]
         // GET: Movies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var movieContext = _context.Movies.Include(m => m.Director);
-            return View(await movieContext.ToListAsync());
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewData["ReleaseYearSortParm"] = sortOrder == "ReleaseYear" ? "releaseyear_desc" : "ReleaseYear";
+            ViewData["CurrentFilter"] = searchString;
+            var movies = from m in _context.Movies.Include(m => m.Director)
+                               select m;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(s => s.Title.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    movies = movies.OrderByDescending(m => m.Title);
+                    break;
+                case "ReleaseYear":
+                    movies = movies.OrderBy(m => m.ReleaseYear);
+                    break;
+                case "releaseyear_desc":
+                    movies = movies.OrderByDescending(m => m.ReleaseYear);
+                    break;
+                default:
+                    movies = movies.OrderBy(m => m.Title);
+                    break;
+            }
+            return View(await movies.AsNoTracking().ToListAsync());
         }
 
         [AllowAnonymous]
@@ -162,6 +185,7 @@ namespace Movie_Tracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AddToWatched(int? id)
         {
             if (id == null)

@@ -23,9 +23,26 @@ namespace Movie_Tracker.Controllers
 
         [AllowAnonymous]
         // GET: Directors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View(await _context.Directors.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+            var directors = from a in _context.Directors
+                         select a;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                directors = directors.Where(s => s.Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    directors = directors.OrderByDescending(a => a.Name);
+                    break;
+                default:
+                    directors = directors.OrderBy(a => a.Name);
+                    break;
+            }
+            return View(await directors.AsNoTracking().ToListAsync());
         }
 
         [AllowAnonymous]

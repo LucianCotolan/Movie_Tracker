@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Movie_Tracker.Data;
 using Movie_Tracker.Models;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,17 @@ namespace Movie_Tracker.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly MovieContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MovieContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_context.Movies.OrderByDescending(d => d.ReleaseYear).Take(4).ToList());
         }
 
         public IActionResult Privacy()

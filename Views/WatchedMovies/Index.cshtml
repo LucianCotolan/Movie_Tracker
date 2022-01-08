@@ -11,7 +11,13 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Movie.Poster)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Movie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.Description)
             </th>
             <th></th>
         </tr>
@@ -20,11 +26,17 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Movie.Title)
+                <img src="@Url.Content(item.Movie.Poster)" width="135" height="215"/>
             </td>
             <td>
-                <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.ActionLink(item.Movie.Title, "Details", "Movies", new { Id = item.MovieId }, null )
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Description)
+            </td>
+            <td>
+                <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.MovieId">Details</a> <br />
+                <a asp-action="Delete" asp-route-id="@item.Id">Remove</a>
             </td>
         </tr>
 }
