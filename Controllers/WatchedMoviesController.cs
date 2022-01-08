@@ -62,6 +62,41 @@ namespace Movie_Tracker.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> AddToWatched(int Id)
+        {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
+
+            var movieId = Id;
+            var applicationUserId = userId;
+
+            var newWatched = new WatchedMovie() { MovieId = movieId, ApplicationUserId = applicationUserId };
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Add(newWatched);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!WatchedMovieExists(newWatched.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(movieId);
+
+        }
         // POST: WatchedMovies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

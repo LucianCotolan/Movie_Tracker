@@ -162,6 +162,24 @@ namespace Movie_Tracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> AddToWatched(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var watchedMovie = await _context.Movies
+                .Include(w => w.WatchedMovies)
+                .ThenInclude(a => a.ApplicationUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (watchedMovie == null)
+            {
+                return NotFound();
+            }
+
+            return View(watchedMovie);
+        }
         private bool MovieExists(int id)
         {
             return _context.Movies.Any(e => e.Id == id);

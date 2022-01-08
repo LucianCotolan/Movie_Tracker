@@ -5,15 +5,17 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Movie</h1>
 
 <div>
-    <h4>Movie</h4>
     <hr />
-    <form asp-controller="WatchedMovies" asp-action="AddToWatched">
-        <input type="hidden" asp-for="Id" value="@Model.Id" />
-        <input type="submit" value="Add to Watched" class="btn btn-secondary" /> |
-    </form>
+    @if (signInManager.IsSignedIn(User))
+    {
+        <p>
+            <a class="btn btn-secondary" asp-action="AddToWatched" asp-route-id="@Model.Id">Add to Watched</a>
+        </p>
+    }
+
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
@@ -71,8 +73,11 @@
             @Html.DisplayNameFor(model => model.Director)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Director.Name)
+            @Html.ActionLink(@Model.Director.Name, "Details", "Directors", new { Id = Model.Director.Id}, null)
         </dd>
+
+        @if (signInManager.IsSignedIn(User))
+        {
         <dt class = "col-sm-2">
             Realtime Comments
         </dt>
@@ -101,6 +106,8 @@
                 </div>
             </div>
         </dd>
+        }
+
     </dl>
 </div>
 
@@ -109,6 +116,10 @@
 <script src="~/js/chat.js"></script>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @if (signInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+    {
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> 
+    }
+    |
     <a asp-action="Index">Back to List</a>
 </div>

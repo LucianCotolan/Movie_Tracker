@@ -1,3 +1,6 @@
 ﻿@using Movie_Tracker
 @using Movie_Tracker.Models
+@using Microsoft.AspNetCore.Identity;
+@using Movie_Tracker.Areas.Identity.Data;
+@inject SignInManager<ApplicationUser> signInManager;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
