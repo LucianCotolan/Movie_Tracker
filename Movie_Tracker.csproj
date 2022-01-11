@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\a32ccdbc-01b5-11e8-b181-443655c1d2b1_image_hires_123657.webp" />
+    <None Remove="Data\best-fall-movies-1632257948 %281%29.png" />
+    <None Remove="Data\oscars.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
